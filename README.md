@@ -47,6 +47,7 @@ Copy the file `etc/message_hub_vcap.json_template` to `etc/message_hub_vcap.json
 cd kafka-producer-for-simulated-data
 virtualenv venv
 source venv/bin/activate
+pip3 install -r requirements.txt
 
 ./bin/run_local.sh
 ```
