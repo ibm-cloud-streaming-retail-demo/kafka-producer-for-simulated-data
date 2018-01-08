@@ -15,6 +15,7 @@ This project is a Cloud Foundry application.
 - Deploy this application:
   - TODO
 - Create IBM Message Hub (Kafka) service instance
+- Link the Message Hub instance to this application
 - Restage this application
 
 # Description
