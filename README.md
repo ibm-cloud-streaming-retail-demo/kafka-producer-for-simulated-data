@@ -11,6 +11,8 @@ This project is a Cloud Foundry application.
 - You have some knowledge of deploying Cloud Foundry applications on the IBM Cloud, E.g. 
   - https://developer.ibm.com/courses/all/bluemix-essentials/ - only LAB 1 and 3 required
   - https://console.bluemix.net/docs/cfapps/index.html
+- You have some knowledge of working with IBM Message Hub, E.g.
+  - https://console.bluemix.net/docs/services/MessageHub/index.html#messagehub
 
 # Setup
 
@@ -26,10 +28,12 @@ cp ../dataset-generator/OnlineRetail.json.gz .
 cf push ...
 
 # create IBM Message Hub (Kafka) service instance
-# and create a topic (for now, the default topic settings should suffice)
-# https://console.bluemix.net/docs/services/MessageHub/index.html#messagehub
+
+# create a topic (for now, the default topic settings should suffice)
+# use `transactions_load` for the topic name
 
 # bind the Message Hub instance to this application
+# https://console.bluemix.net/docs/cfapps/ee.html#ee_cf
 
 # restage this application
 cf restage ...
