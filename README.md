@@ -21,11 +21,14 @@ This project is a Cloud Foundry application.
 git clone https://github.com/ibm-cloud-streaming-retail-demo/kafka-producer-for-simulated-data
 cd kafka-producer-for-simulated-data
 
+# change the applications.name and applications.route values in the manifest.yml to values that
+# should be unique to you
+
 # copy `OnlineRetail.json.gz` to this folder
 cp ../dataset-generator/OnlineRetail.json.gz .
 
 # deploy this application
-cf push ...
+cf push [your_app_name]
 
 # create IBM Message Hub (Kafka) service instance
 
@@ -33,10 +36,10 @@ cf push ...
 # use `transactions_load` for the topic name
 
 # bind the Message Hub instance to this application
-# https://console.bluemix.net/docs/cfapps/ee.html#ee_cf
+cf bind-service [your_app_name] [your_name_for_your_messagehub_service]
 
 # restage this application
-cf restage ...
+cf restage [your_app_name]
 ```
 
 
