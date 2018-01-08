@@ -101,3 +101,4 @@ ENV/
 .mypy_cache/
 etc/message_hub_vcap.json
 venv/
+OnlineRetail.json.gz
