@@ -4,6 +4,10 @@ The purpose of this project is to take the simulated data set created by the [da
 
 This project is a Cloud Foundry application.
 
+# Dependencies
+
+- This project has a dependency on the dataset `OnlineRetail.json.gz` that is output from the [dataset-generator](https://github.com/ibm-cloud-streaming-retail-demo/dataset-generator) project.
+
 # Prerequisites
 
 - You have followed the instructions in the project [dataset-generator](https://github.com/ibm-cloud-streaming-retail-demo/dataset-generator) to create a dataset, `OnlineRetail.json.gz`.
