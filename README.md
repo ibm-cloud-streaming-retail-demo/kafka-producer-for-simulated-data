@@ -53,7 +53,7 @@ virtualenv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
 
-./bin/run_local.sh
+./bin/run_locally.sh
 ```
 
 
