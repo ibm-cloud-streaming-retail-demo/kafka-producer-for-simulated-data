@@ -8,7 +8,9 @@ This project is a Cloud Foundry application.
 
 - You have followed the instructions in the project [dataset-generator](https://github.com/ibm-cloud-streaming-retail-demo/dataset-generator) to create a dataset, `OnlineRetail.json.gz`.
 - You have an IBM Cloud account
-- You have some knowledge of deploying Cloud Foundry applications on the IBM Cloud (E.g. https://developer.ibm.com/courses/all/bluemix-essentials/)
+- You have some knowledge of deploying Cloud Foundry applications on the IBM Cloud, E.g. 
+  - https://developer.ibm.com/courses/all/bluemix-essentials/ - only LAB 1 and 3 required
+  - https://console.bluemix.net/docs/cfapps/index.html
 
 # Setup
 
