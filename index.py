@@ -2,24 +2,43 @@ from flask import Flask
 import threading
 import os
 import fcntl
-import kafka_send
 import time 
 import random
+import sys
+
+import kafka_send
+import service_credentials
 
 PORT = int(os.getenv("PORT"))
 CF_INSTANCE_INDEX = os.getenv('CF_INSTANCE_INDEX')
 
 app = Flask(__name__)
 
-def run_job():
-    kafka_send.load_records(int(CF_INSTANCE_INDEX))
 
-thread = threading.Thread(target=run_job)
-thread.start()
+try:
+    # retrieve the service credentials
+    service_creds = service_credentials.get_opts()
+
+    # retreive the topic name from the manifest.yml
+    service_creds['topic-transactions'] = os.getenv('TRANSACTIONS_TOPIC')
+
+    # run the kafka sender as thread so flask can still serve requests
+    def run_job():
+        kafka_send.load_records(int(CF_INSTANCE_INDEX), service_creds)
+
+    thread = threading.Thread(target=run_job)
+    thread.start()
+except Exception as e:
+   print(e)
+   sys.exit(1)
+
+
+
 
 @app.route('/')
 def home():
     return('Coming soon...')
+
 
 @app.route('/simulate_risky_transaction')
 def simulate_risky_transaction():

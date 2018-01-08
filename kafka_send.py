@@ -23,35 +23,7 @@ from collections import OrderedDict
 #logger.addHandler(logging.StreamHandler(sys.stdout))
 #logger.setLevel(logging.INFO)
 
-print('Starting index.py')
-
-
-opts = {}
-
-if os.environ.get('VCAP_SERVICES'):
-    # Running in Bluemix
-    print('Running in Bluemix mode.')
-    vcap_services = json.loads(os.environ.get('VCAP_SERVICES'))
-    for vcap_service in vcap_services:
-        if vcap_service.startswith('messagehub'):
-            messagehub_service = vcap_services[vcap_service][0]
-            opts['brokers'] = ','.join(messagehub_service['credentials']['kafka_brokers_sasl'])
-            opts['api_key'] = messagehub_service['credentials']['api_key']
-            opts['username'] = messagehub_service['credentials']['user']
-            opts['password'] = messagehub_service['credentials']['password']
-            opts['rest_endpoint'] = messagehub_service['credentials']['kafka_admin_url']
-else:
-    print('ERROR: no VCAP_SERVICES found in environment')
-    sys.exit(-1)
-
-if opts == {}:
-    print('ERROR: no messagehub bound to application')
-    sys.exit(-1)
-
-#print(opts)
-
-opts['topic-transactions'] = os.getenv('TRANSACTIONS_TOPIC')
-opts['topic-metrics'] = os.getenv('METRICS_TOPIC')
+print('Starting kafka_send.py')
 
 sasl_mechanism = 'PLAIN'
 security_protocol = 'SASL_SSL'
@@ -61,7 +33,7 @@ context = ssl.create_default_context()
 context.options &= ssl.OP_NO_TLSv1
 context.options &= ssl.OP_NO_TLSv1_1
 
-def get_producer():
+def get_producer(opts):
     producer = KafkaProducer(bootstrap_servers = opts['brokers'],
                          sasl_plain_username = opts['username'],
                          sasl_plain_password = opts['password'],
@@ -105,7 +77,7 @@ def kafka_send_callback(args):
     else:
         print(args)
 
-def load_records(store_num):
+def load_records(store_num, opts):
 
     runon = [] # store the dates yyyymmdd that the load has already run
 
@@ -125,7 +97,7 @@ def load_records(store_num):
         print('Starting new loop')
 
         # start with a fresh producer
-        producer = get_producer()
+        producer = get_producer(opts)
 
         with gzip.open('OnlineRetail.json.gz', 'rt') as tx_f:
 
