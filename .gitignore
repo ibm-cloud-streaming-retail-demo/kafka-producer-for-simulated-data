@@ -99,3 +99,5 @@ ENV/
 
 # mypy
 .mypy_cache/
+etc/message_hub_vcap.json
+venv/
