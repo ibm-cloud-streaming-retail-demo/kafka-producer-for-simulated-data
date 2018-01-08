@@ -4,7 +4,7 @@ The purpose of this project is to take the simulated data set created by the [da
 
 This project is a Cloud Foundry application.
 
-# Pre-requisites
+# Prerequisites
 
 - You have followed the instructions in the project [dataset-generator](https://github.com/ibm-cloud-streaming-retail-demo/dataset-generator) to create a dataset, `OnlineRetail.json.gz`.
 - You have an IBM Cloud account
