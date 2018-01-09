@@ -90,6 +90,7 @@ def load_records(store_num, opts):
         if rundate_yyyymmdd in runon:
             print('runon{} contains {} - waiting until tomorrow before processing again.'.format(runon, rundate_yyyymmdd))
             time.sleep(600) # sleep 10 minutes
+            # skip loading the data - let's try again
             continue
         else:
             print("runon{} doesn't contains {} - processing file.".format(runon, rundate_yyyymmdd))
