@@ -43,6 +43,27 @@ cf bind-service [your_app_name] [your_name_for_your_messagehub_service]
 cf restage [your_app_name]
 ```
 
+## Scaling
+
+TODO (each instance of cloud foundry generates a unique dataset)
+
+# Example data
+
+An example of the data published to Message Hub:
+
+InvoiceNo | StockCode | Description             | Quantity | InvoiceDate    | UnitPrice | CustomerID | Country | LineNo | InvoiceTime | StoreID | TransactionID
+-- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | --
+5370812   | 15056BL   | EDWARDIAN PARASOL BLACK | 12       | 1515542400000 | 5.95      | 15332      | Lithuania  | 3 | 00:00:00 | 0 | 537081230180110
+
+The main changes between this dataset and the dataset created by the  [dataset-generator](https://github.com/ibm-cloud-streaming-retail-demo/dataset-generator) project are:
+
+- InvoiceDate has been converted to a unix timestamp (milliseconds since epoch)
+- The following fields have been added:
+  - LineNo - the invoice line item number
+  - InvoiceTime - the invoice time (format HH:MM:SS)
+  - StoreID - the store ID (each cloud foundry instance will have a unique store id - see TODO)
+  - TransactionID - the unique transaction ID, derived from InvoiceNo, TODO
+
 # Developing
 
 Copy the file `etc/message_hub_vcap.json_template` to `etc/message_hub_vcap.json` and populate with your Message Hub instance values.  These can be found in the IBM Console in the section 'Credentials'.
