@@ -19,6 +19,7 @@ This project is a Cloud Foundry application.
   - https://console.bluemix.net/docs/services/MessageHub/index.html#messagehub
 - You have a Message Hub instance in the IBM Cloud space where you will be deploying this Cloud Foundry application. 
 - You have created a Message Hub topic called `transactions_load` in the above Message Hub instance.  The default topic creation settings should be ok to start with.
+- You are able to run unix shell scripts
 
 # Deploy
 
@@ -77,6 +78,11 @@ pip3 install -r requirements.txt
 ./bin/run_locally.sh
 ```
 
+To test that the topic is receiving data, you can consume the data with:
+
+```
+./bin/run_consumer.sh
+```
 
 # Description
 
