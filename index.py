@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from flask import Flask
 import threading
 import os
@@ -8,6 +10,7 @@ import sys
 
 import kafka_send
 import service_credentials
+
 
 PORT = int(os.getenv("PORT"))
 CF_INSTANCE_INDEX = os.getenv('CF_INSTANCE_INDEX')
@@ -32,18 +35,13 @@ except Exception as e:
    print(e)
    sys.exit(1)
 
-
-
-
 @app.route('/')
 def home():
     return('Coming soon...')
 
-
 @app.route('/simulate_risky_transaction')
 def simulate_risky_transaction():
     try:
-        producer = kafka_send.get_producer()
 
         tx_time = int(round(time.time() * 1000))
         tx_id = random.randint(100000000000000,999999999999999)
@@ -52,6 +50,7 @@ def simulate_risky_transaction():
 
         tx_topic = os.getenv('TRANSACTIONS_TOPIC')
 
+        producer = kafka_send.get_producer(service_creds)
         producer.send(tx_topic, key='', value=data.encode('utf-8'))
         producer.flush()
         producer.close()
@@ -59,7 +58,8 @@ def simulate_risky_transaction():
         return('Simulated transaction: ' + data)
 
     except Exception as e:
-        print(str(e))
+        print(str(e), file=sys.stderr)
+        return('Error simulating risky transaction.')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=PORT)
