@@ -21,6 +21,7 @@ This project is a Cloud Foundry application.
 - You have created a Message Hub topic called `transactions_load` in the above Message Hub instance.  The default topic creation settings should be ok to start with.
 - You are able to run unix shell scripts
 
+
 # Deploy
 
 ```
@@ -83,6 +84,8 @@ To test that the topic is receiving data, you can consume the data with:
 ```
 ./bin/run_consumer.sh
 ```
+
+- IMPORTANT: OSX users; if you receive the error: `SSL: CERTIFICATE_VERIFY_FAILED` you may need to google how to fix it, for example my running `/Applications/Python\ 3.6/Install\ Certificates.command`
 
 # Description
 
