@@ -18,11 +18,11 @@ This project is a Cloud Foundry application.
 - You have some knowledge of working with IBM Message Hub, E.g.
   - https://console.bluemix.net/docs/services/MessageHub/index.html#messagehub
 - You have a Message Hub instance in the IBM Cloud space where you will be deploying this Cloud Foundry application. 
-- You have created a Message Hub topic called `transactions_load` in the above Message Hub instance.  The default topic creation settings should be ok to start with.
 - You are able to run unix shell scripts
 
-
 # Deploy
+
+- If you haven't already done so, create a Message Hub topic called `transactions_load` in your Message Hub instance.  The default topic creation settings should be ok to start with.
 
 ```
 # clone this project
