@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # abort on error
-set -e 
+set -e
 
 # abort on undefined variable
-set -u 
+set -u
 
 # get the project directory
 PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
@@ -23,4 +23,4 @@ export PORT=12345
 export TRANSACTIONS_TOPIC=transactions_load
 export CF_INSTANCE_INDEX=0
 
-python3 "$PROJECT_DIR/index.py"
+python "$PROJECT_DIR/index.py"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # abort on error
-set -e 
+set -e
 
 # abort on undefined variable
 set -u
@@ -24,4 +24,4 @@ fi
 export VCAP_SERVICES="{$(cat "${VCAP_SERVICES_FILE}")}"
 export TRANSACTIONS_TOPIC=transactions_load
 
-python3 "${BIN_DIR}/consumer.py"
+python "${BIN_DIR}/consumer.py"

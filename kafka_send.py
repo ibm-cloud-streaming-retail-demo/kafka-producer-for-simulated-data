@@ -10,6 +10,7 @@ import json
 import time
 import os
 import gzip
+
 from random import randint
 
 import datetime
@@ -17,11 +18,11 @@ import time
 
 from collections import OrderedDict
 
-#import logging
-#import sys
-#logger = logging.getLogger('kafka')
-#logger.addHandler(logging.StreamHandler(sys.stdout))
-#logger.setLevel(logging.INFO)
+import logging
+import sys
+logger = logging.getLogger('kafka')
+logger.addHandler(logging.StreamHandler(sys.stdout))
+logger.setLevel(logging.INFO)
 
 print('Starting kafka_send.py')
 
@@ -70,7 +71,7 @@ def kafka_send_callback(args):
     if type(args) is RecordMetadata:
         pass
         # Ignore success as there will be so many - instead we should track failures?
-        # print('.', end="")    
+        # print('.', end="")
     elif type(args) is KafkaTimeoutError:
         print('!', end="")
         # KafkaTimeoutError: ('Batch containing %s record(s) expired due to timeout while requesting metadata from brokers for %s', 49, TopicPartition(topic='transactions_load', partition=2))
@@ -120,7 +121,7 @@ def load_records(store_num, opts):
                 tx_dt = tx_dt.replace(year=rundate.year, month=rundate.month, day=rundate.day)
                 # add some randomness to the invoicedate
                 tx_dt = tx_dt + datetime.timedelta(seconds=get_offset_s(store_num))
-              
+
                 tx_time = tx_dt.strftime('%H:%M:%S')
                 j['InvoiceTime'] = tx_time
                 j['InvoiceDate'] = int(tx_dt.strftime('%s')) * 1000
@@ -166,4 +167,3 @@ if __name__ == "__main__":
 
     store_num = os.getenv('CF_INSTANCE_INDEX')
     load_records(store_num)
-

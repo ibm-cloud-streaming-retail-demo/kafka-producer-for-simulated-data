@@ -3,14 +3,15 @@ from __future__ import print_function
 from flask import Flask
 import threading
 import os
-import fcntl
-import time 
+#import fcntl
+import time
 import random
 import sys
 
 import kafka_send
 import service_credentials
 
+import get_customer
 
 PORT = int(os.getenv("PORT"))
 CF_INSTANCE_INDEX = os.getenv('CF_INSTANCE_INDEX')
@@ -24,6 +25,7 @@ try:
 
     # retreive the topic name from the manifest.yml
     service_creds['topic-transactions'] = os.getenv('TRANSACTIONS_TOPIC')
+    service_creds['topic-customers'] = os.getenv('CUSTOMERS_TOPIC')
 
     # run the kafka sender as thread so flask can still serve requests
     def run_job():
@@ -54,12 +56,33 @@ def simulate_risky_transaction():
         producer.send(tx_topic, key='', value=data.encode('utf-8'))
         producer.flush()
         producer.close()
-    
+
         return('Simulated transaction: ' + data)
 
     except Exception as e:
         print(str(e), file=sys.stderr)
         return('Error simulating risky transaction.')
+
+@app.route('/customer_address_change')
+def customer_address_change():
+    try:
+
+        customer = get_customer.getcustchange()
+
+        data='{"CustomerID":"' + str(customer['customerID']) + '","Address":"' + str(customer['address']) + '","Name":"' + str(customer['name']) + '","validFrom":"'+ str(customer['validFrom']) +'"}'
+
+        tx_topic = os.getenv('CUSTOMERS_TOPIC')
+
+        producer = kafka_send.get_producer(service_creds)
+        producer.send(tx_topic, key='', value=data.encode('utf-8'))
+        producer.flush()
+        producer.close()
+
+        return('Customer address updated: ' + data)
+
+    except Exception as e:
+        print(str(e), file=sys.stderr)
+        return('Error producing customer address change..')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=PORT)
