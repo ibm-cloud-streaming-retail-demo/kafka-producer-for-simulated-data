@@ -80,13 +80,31 @@ pip3 install -r requirements.txt
 ./bin/run_locally.sh
 ```
 
-To test that the topic is receiving data, you can consume the data with:
+Or, using docker:
 
 ```
+docker run -it --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp amancevice/pandas:0.20.2-python3 bash -c "pip3 install -r requirements.txt && ./bin/run_locally.sh"
+```
+
+# Verifying data is being produced
+
+To verify that the topic is receiving data, you can consume the data with:
+
+```
+cd kafka-producer-for-simulated-data
+virtualenv venv
+source venv/bin/activate
+
 ./bin/run_consumer.sh
 ```
 
 - IMPORTANT: OSX users; if you receive the error: `SSL: CERTIFICATE_VERIFY_FAILED` you may need to google how to fix it, for example my running `/Applications/Python\ 3.6/Install\ Certificates.command`
+
+Or, using docker:
+
+```
+docker run -it --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp amancevice/pandas:0.20.2-python3 bash -c "pip3 install -r requirements.txt && ./bin/run_consumer.sh"
+```
 
 # Description
 
