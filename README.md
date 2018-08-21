@@ -33,8 +33,8 @@ cd kafka-producer-for-simulated-data
 # should be unique to you
 
 # copy `OnlineRetail.json.gz` and `OnlineRetailCustomers.csv.gz` to this folder
-cp ../dataset-generator/OnlineRetail.json.gz
-cp ../dataset-generator/OnlineRetailCustomers.csv.gz
+cp ../dataset-generator/OnlineRetail.json.gz .
+cp ../dataset-generator/OnlineRetailCustomers.csv.gz .
 
 # deploy this application
 cf push [your_app_name]
